@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="classic">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Lexis.Read — Aprenda idiomas lendo livros reais."/>
+<title>Lexis.Read</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+<style>
+/* =====================================================
+   THEMES
+   ===================================================== */
+[data-theme="classic"]{
+  --bg:#f5f0e8;--paper:#faf7f2;--ink:#1a1612;--ink-muted:#5a524a;--ink-faint:#9a8f80;
+  --accent:#2c5f8a;--accent-light:#e8f0f7;--accent-hover:#1e4266;
+  --gold:#c8963c;--gold-light:#fdf3e3;
+  --highlight:#fff3b0;--highlight-seen:#cce8d4;
+  --border:#d9d0c2;--card:#fff;
+  --danger:#c0392b;--success:#27ae60;
+  --font-body:'Source Serif 4',Georgia,serif;
+  --font-display:'Playfair Display',serif;
+  --font-size-body:1rem;
+}
+[data-theme="night"]{
+  --bg:#0f0f13;--paper:#16161d;--ink:#e8e4da;--ink-muted:#a09890;--ink-faint:#5a5450;
+  --accent:#5b9bd5;--accent-light:#1a2535;--accent-hover:#7ab3e0;
+  --gold:#d4a853;--gold-light:#2a2010;
+  --highlight:#2d2a10;--highlight-seen:#0f2a1a;
+  --border:#2a2825;--card:#1e1e26;
+  --danger:#e05555;--success:#4caf50;
+  --font-body:'Source Serif 4',Georgia,serif;
+  --font-display:'Playfair Display',serif;
+  --font-size-body:1rem;
+}
+[data-theme="forest"]{
+  --bg:#e8ede0;--paper:#f2f5ee;--ink:#1e2a18;--ink-muted:#4a5e3a;--ink-faint:#8a9e78;
+  --accent:#3a6b3a;--accent-light:#ddeedd;--accent-hover:#2a5228;
+  --gold:#8a7a2a;--gold-light:#f5f0d0;
+  --highlight:#f5f0b0;--highlight-seen:#c8e6c8;
+  --border:#c8d8b8;--card:#f8faf4;
+  --danger:#b03030;--success:#3a8a3a;
+  --font-body:'Lora',Georgia,serif;
+  --font-display:'Playfair Display',serif;
+  --font-size-body:1rem;
+}
+[data-theme="midnight"]{
+  --bg:#0a0e1a;--paper:#0e1420;--ink:#c8d8f0;--ink-muted:#7888a8;--ink-faint:#3a4a6a;
+  --accent:#4a8ac8;--accent-light:#0e1e38;--accent-hover:#6aaae8;
+  --gold:#c8a850;--gold-light:#1a1800;
+  --highlight:#1a1e08;--highlight-seen:#081820;
+  --border:#1e2840;--card:#121828;
+  --danger:#e05555;--success:#50b050;
+  --font-body:'Crimson Pro',Georgia,serif;
+  --font-display:'Playfair Display',serif;
+  --font-size-body:1.05rem;
+}
+[data-theme="sepia"]{
+  --bg:#e8d8b8;--paper:#f0e4c8;--ink:#3a2a10;--ink-muted:#6a5030;--ink-faint:#a08060;
+  --accent:#7a4820;--accent-light:#f0ddc0;--accent-hover:#5a3010;
+  --gold:#b87830;--gold-light:#f8eed8;
+  --highlight:#f8e890;--highlight-seen:#c8e0b8;
+  --border:#c8b090;--card:#f8eed8;
+  --danger:#b03020;--success:#407030;
+  --font-body:'Lora',Georgia,serif;
+  --font-display:'Playfair Display',serif;
+  --font-size-body:1rem;
+}
+[data-theme="mono"]{
+  --bg:#f0f0f0;--paper:#fafafa;--ink:#111;--ink-muted:#444;--ink-faint:#888;
+  --accent:#111;--accent-light:#e8e8e8;--accent-hover:#333;
+  --gold:#555;--gold-light:#e8e8e8;
+  --highlight:#e8e800;--highlight-seen:#c8e8c8;
+  --border:#ccc;--card:#fff;
+  --danger:#c00;--success:#080;
+  --font-body:'JetBrains Mono','Courier New',monospace;
+  --font-display:'JetBrains Mono','Courier New',monospace;
+  --font-size-body:.88rem;
+}
+[data-theme="ocean"]{
+  --bg:#e0eef8;--paper:#eef6fc;--ink:#0a2035;--ink-muted:#2a5070;--ink-faint:#6090b0;
+  --accent:#0a5880;--accent-light:#d0e8f4;--accent-hover:#083a58;
+  --gold:#c07820;--gold-light:#fff3d0;
+  --highlight:#fff8b0;--highlight-seen:#b0ddb0;
+  --border:#b0cce0;--card:#fff;
+  --danger:#b03020;--success:#207040;
+  --font-body:'Source Serif 4',Georgia,serif;
+  --font-display:'Playfair Display',serif;
+  --font-size-body:1rem;
+}
+
+/* =====================================================
+   RESET & BASE
+   ===================================================== */
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);color:var(--ink);
+  min-height:100vh;font-size:var(--font-size-body);
+  overflow:hidden;transition:background .3s,color .3s;
+}
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+.app-header{
+  background:var(--ink);color:var(--bg);
+  padding:0 16px;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:3px solid var(--gold);
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .3s,border-color .3s;
+}
+.app-logo{font-family:var(--font-display);font-size:1.4rem;font-weight:700;letter-spacing:.01em;}
+.app-logo span{color:var(--gold);}
+.header-right{display:flex;align-items:center;gap:8px;}
+.header-stats{display:flex;gap:14px;font-size:.7rem;color:var(--ink-faint);}
+.header-stats span strong{color:var(--bg);}
+.icon-btn{
+  background:none;border:none;cursor:pointer;
+  font-size:1rem;padding:5px 7px;border-radius:6px;
+  transition:background .15s;color:var(--bg);opacity:.7;
+}
+.icon-btn:hover{background:rgba(255,255,255,.13);opacity:1;}
+.plan-badge{
+  font-size:.68rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;padding:4px 11px;border-radius:20px;
+  cursor:pointer;border:none;font-family:var(--font-body);
+  transition:opacity .15s;background:var(--gold);color:white;
+}
+.plan-badge:hover{opacity:.85;}
+.plan-badge.free{background:#666;}
+
+/* =====================================================
+   MODAL BASE
+   ===================================================== */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.7);z-index:200;
+  align-items:center;justify-content:center;padding:16px;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--paper);border-radius:14px;
+  width:100%;overflow:hidden;
+  box-shadow:0 28px 72px rgba(0,0,0,.4);
+  animation:slideUp .22s ease;
+  max-height:90vh;overflow-y:auto;
+}
+@keyframes slideUp{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-hdr{
+  background:var(--ink);color:var(--bg);
+  padding:18px 22px;position:relative;
+  border-bottom:2px solid var(--gold);
+}
+.modal-hdr h2{font-family:var(--font-display);font-size:1.3rem;margin-bottom:2px;}
+.modal-hdr p{font-size:.8rem;color:var(--ink-faint);font-style:italic;}
+.modal-x{
+  position:absolute;top:12px;right:14px;
+  background:none;border:none;color:#888;
+  font-size:1.5rem;cursor:pointer;line-height:1;
+}
+.modal-x:hover{color:var(--bg);}
+.modal-body{padding:20px 22px;}
+
+/* =====================================================
+   PLAN MODAL
+   ===================================================== */
+.plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.plan-card{
+  border:2px solid var(--border);border-radius:10px;
+  padding:16px 12px;cursor:pointer;
+  transition:all .15s;text-align:center;
+  background:var(--paper);
+}
+.plan-card:hover,.plan-card.sel{border-color:var(--accent);background:var(--accent-light);}
+.plan-card.featured{border-color:var(--gold);background:var(--gold-light);}
+.plan-card.featured:hover,.plan-card.featured.sel{border-color:var(--gold);}
+.plan-name{font-family:var(--font-display);font-size:1.05rem;font-weight:700;margin-bottom:5px;color:var(--ink);}
+.plan-price{font-size:1.4rem;font-weight:600;color:var(--accent);margin-bottom:9px;}
+.plan-price.gp{color:var(--gold);}
+.plan-price small{font-size:.7rem;color:var(--ink-faint);}
+.plan-feats{font-size:.75rem;color:var(--ink-muted);line-height:1.8;text-align:left;}
+.plan-feats li{list-style:none;padding-left:16px;position:relative;}
+.plan-feats li::before{content:'✓';position:absolute;left:0;color:var(--success);}
+.plan-feats li.no::before{content:'✗';color:var(--ink-faint);}
+.modal-btn{
+  width:100%;padding:13px;border:none;border-radius:8px;
+  font-family:var(--font-display);font-size:.95rem;font-weight:600;
+  cursor:pointer;transition:opacity .15s;
+}
+.modal-btn:hover{opacity:.87;}
+.modal-btn.dark{background:var(--ink);color:var(--bg);}
+.modal-btn.amber{background:var(--gold);color:white;}
+
+/* =====================================================
+   SETTINGS MODAL
+   ===================================================== */
+.settings-max{max-width:480px;}
+
+.cfg-section{margin-bottom:22px;}
+.cfg-section:last-child{margin-bottom:0;}
+.cfg-label{
+  font-size:.68rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:10px;display:block;
+}
+.cfg-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 0;border-bottom:.5px solid var(--border);
+  font-size:.85rem;gap:8px;
+}
+.cfg-row:last-child{border-bottom:none;}
+.cfg-row label{color:var(--ink-muted);font-size:.8rem;flex-shrink:0;}
+.cfg-row select,.cfg-row input[type=text],.cfg-row input[type=password]{
+  font-family:var(--font-body);font-size:.8rem;
+  border:1px solid var(--border);background:var(--card);
+  padding:5px 8px;border-radius:5px;color:var(--ink);
+  outline:none;transition:border-color .15s;max-width:180px;
+}
+.cfg-row select:focus,.cfg-row input:focus{border-color:var(--accent);}
+.cfg-full{
+  width:100%;margin-top:6px;font-family:var(--font-body);font-size:.83rem;
+  border:1px solid var(--border);background:var(--card);
+  padding:8px 10px;border-radius:6px;color:var(--ink);
+  outline:none;transition:border-color .15s;
+}
+.cfg-full:focus{border-color:var(--accent);}
+.cfg-hint{font-size:.7rem;color:var(--ink-faint);margin-top:5px;line-height:1.5;}
+.cfg-hint a{color:var(--accent);}
+
+/* THEME PICKER */
+.theme-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px;}
+@media(max-width:400px){.theme-grid{grid-template-columns:repeat(3,1fr);}}
+.theme-swatch{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  cursor:pointer;padding:8px 4px;border-radius:8px;
+  border:2px solid transparent;transition:all .15s;
+  background:none;font-family:var(--font-body);
+}
+.theme-swatch:hover{border-color:var(--border);background:var(--accent-light);}
+.theme-swatch.active{border-color:var(--accent);}
+.swatch-dot{
+  width:32px;height:32px;border-radius:50%;
+  border:2px solid rgba(0,0,0,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;
+}
+.swatch-name{font-size:.65rem;color:var(--ink-muted);text-align:center;line-height:1.2;}
+
+/* FONT SIZE SLIDER */
+.font-slider{display:flex;align-items:center;gap:10px;margin-top:6px;}
+.font-slider input[type=range]{flex:1;accent-color:var(--accent);}
+.font-slider span{font-size:.78rem;color:var(--ink-muted);min-width:28px;text-align:right;}
+
+/* PLAN INFO BOX */
+.plan-info{
+  background:var(--gold-light);border:1px solid var(--gold);
+  border-radius:8px;padding:12px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.plan-info span{font-size:.83rem;color:var(--ink-muted);}
+.plan-info strong{color:var(--ink);}
+
+/* DANGER */
+.danger-btn{
+  background:none;border:1px solid var(--danger);color:var(--danger);
+  padding:7px 14px;border-radius:6px;font-family:var(--font-body);
+  font-size:.8rem;cursor:pointer;transition:all .15s;
+}
+.danger-btn:hover{background:var(--danger);color:white;}
+
+/* SAVE SETTINGS */
+.save-cfg-btn{
+  width:100%;padding:12px;border:none;border-radius:8px;
+  background:var(--accent);color:white;
+  font-family:var(--font-display);font-size:.95rem;font-weight:600;
+  cursor:pointer;margin-top:18px;transition:opacity .15s;
+}
+.save-cfg-btn:hover{opacity:.88;}
+
+/* =====================================================
+   LAYOUT
+   ===================================================== */
+.app-wrap{
+  position:fixed;top:56px;left:0;right:0;bottom:0;
+  display:flex;overflow:hidden;
+}
+@media(min-width:768px){
+  .reader-panel{flex:1;display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--border);}
+  .sidebar{width:340px;display:flex;flex-direction:column;background:var(--card);}
+  .btm-nav{display:none!important;}
+  .header-stats{display:flex;}
+}
+@media(max-width:767px){
+  .app-wrap{flex-direction:column;}
+  .reader-panel{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+  .sidebar{
+    position:fixed;bottom:60px;left:0;right:0;height:58vh;
+    background:var(--card);border-top:2px solid var(--border);
+    display:flex;flex-direction:column;
+    transform:translateY(100%);transition:transform .25s ease;
+    z-index:50;box-shadow:0 -8px 32px rgba(0,0,0,.14);
+  }
+  .sidebar.open{transform:translateY(0);}
+  .btm-nav{
+    position:fixed;bottom:0;left:0;right:0;height:60px;
+    background:var(--ink);border-top:2px solid var(--gold);
+    display:flex;z-index:60;
+  }
+  .header-stats{display:none;}
+  .plan-badge{font-size:.62rem;padding:3px 9px;}
+}
+
+/* =====================================================
+   BOTTOM NAV
+   ===================================================== */
+.btm-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;color:var(--ink-faint);background:none;border:none;
+  font-size:.56rem;letter-spacing:.06em;text-transform:uppercase;
+  cursor:pointer;font-family:var(--font-body);transition:color .15s;
+}
+.btm-btn .ico{font-size:1.1rem;}
+.btm-btn.active{color:var(--gold);}
+
+/* =====================================================
+   TOOLBAR
+   ===================================================== */
+.reader-toolbar{
+  background:var(--paper);border-bottom:1px solid var(--border);
+  padding:8px 12px;display:flex;align-items:center;
+  gap:8px;flex-wrap:wrap;flex-shrink:0;
+}
+.lang-row{display:flex;align-items:center;gap:5px;font-size:.76rem;color:var(--ink-muted);}
+.lang-row select{
+  font-family:var(--font-body);font-size:.76rem;
+  border:1px solid var(--border);background:var(--card);
+  padding:4px 6px;border-radius:4px;color:var(--ink);
+  max-width:120px;outline:none;cursor:pointer;
+}
+.btn{
+  font-family:var(--font-body);font-size:.76rem;padding:5px 11px;
+  border-radius:4px;border:1px solid var(--border);
+  cursor:pointer;transition:all .15s;background:var(--card);
+  color:var(--ink);white-space:nowrap;
+}
+.btn:hover{background:var(--accent-light);border-color:var(--accent);color:var(--accent);}
+.btn-acc{background:var(--accent);color:white;border-color:var(--accent);}
+.btn-acc:hover{background:var(--accent-hover);color:white;}
+.btn-gold{background:var(--gold);color:white;border-color:var(--gold);}
+.btn-gold:hover{opacity:.87;}
+.up-lbl{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--font-body);font-size:.76rem;padding:5px 11px;
+  border-radius:4px;border:1px solid var(--accent);
+  cursor:pointer;background:var(--accent-light);color:var(--accent);
+  font-weight:600;white-space:nowrap;transition:all .15s;
+}
+.up-lbl:hover{background:var(--accent);color:white;}
+#pdf-upload{display:none;}
+
+/* =====================================================
+   READER
+   ===================================================== */
+.reader-content{
+  flex:1;overflow-y:auto;
+  padding:24px 20px;background:var(--paper);
+  transition:background .3s;
+}
+@media(min-width:768px){.reader-content{padding:36px 52px;}}
+
+.book-title{
+  font-family:var(--font-display);font-size:1rem;font-weight:600;
+  color:var(--ink-muted);font-style:italic;
+  border-bottom:1px solid var(--border);padding-bottom:11px;margin-bottom:20px;
+}
+.reader-text{line-height:2;color:var(--ink);}
+
+.word{cursor:pointer;border-radius:2px;transition:background .1s;padding:0 1px;}
+.word:hover{background:var(--highlight);}
+.word.seen{background:var(--highlight-seen);}
+.word.active{background:var(--gold-light);outline:2px solid var(--gold);border-radius:2px;}
+
+.upload-zone{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;min-height:65vh;gap:13px;
+  color:var(--ink-faint);padding:24px;text-align:center;
+}
+.upload-zone-ico{font-size:3.5rem;}
+.upload-zone h2{
+  font-family:var(--font-display);font-size:1.3rem;
+  color:var(--ink-muted);font-weight:400;font-style:italic;
+}
+.upload-zone p{font-size:.87rem;max-width:300px;line-height:1.6;}
+
+/* =====================================================
+   SIDEBAR & TABS
+   ===================================================== */
+.sidebar-tabs{display:flex;border-bottom:2px solid var(--border);}
+.tab{
+  flex:1;padding:11px 5px;text-align:center;
+  font-size:.7rem;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;cursor:pointer;color:var(--ink-faint);
+  border-bottom:2px solid transparent;margin-bottom:-2px;
+  transition:all .15s;background:none;
+  border-top:none;border-left:none;border-right:none;
+  font-family:var(--font-body);
+}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab:hover:not(.active){color:var(--ink-muted);background:var(--bg);}
+.sidebar-content{flex:1;overflow-y:auto;padding:15px;}
+
+/* =====================================================
+   ANALYSIS
+   ===================================================== */
+.analysis-ph{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;min-height:180px;
+  color:var(--ink-faint);font-style:italic;font-size:.87rem;
+  text-align:center;gap:9px;
+}
+.aw{font-family:var(--font-display);font-size:1.55rem;font-weight:700;color:var(--ink);margin-bottom:1px;}
+.apos{font-size:.8rem;color:var(--ink-faint);font-style:italic;margin-bottom:11px;}
+.asec{margin-bottom:13px;}
+.albl{
+  font-size:.67rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:4px;
+}
+.abody{font-size:.87rem;line-height:1.65;color:var(--ink);}
+.ex-item{
+  background:var(--bg);border-left:3px solid var(--border);
+  padding:7px 10px;margin-bottom:7px;
+  border-radius:0 4px 4px 0;font-size:.83rem;line-height:1.5;
+}
+.ex-tr{font-size:.77rem;color:var(--accent);font-style:italic;margin-top:3px;}
+.save-row{margin-top:11px;display:flex;gap:8px;}
+.loading-ind{
+  display:flex;align-items:center;gap:8px;
+  font-size:.84rem;color:var(--ink-faint);
+  font-style:italic;padding:12px 0;
+}
+.spinner{
+  width:14px;height:14px;border:2px solid var(--border);
+  border-top-color:var(--accent);border-radius:50%;
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* =====================================================
+   FLASHCARDS
+   ===================================================== */
+.fc-controls{display:flex;gap:7px;margin-bottom:11px;flex-wrap:wrap;}
+.fc-list{display:flex;flex-direction:column;gap:8px;}
+.fc{
+  border:1px solid var(--border);border-radius:8px;
+  padding:11px 13px;background:var(--paper);
+  cursor:pointer;transition:all .15s;position:relative;
+}
+.fc:hover{border-color:var(--accent);background:var(--accent-light);}
+.fc-front{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--ink);}
+.fc-hint{font-size:.66rem;color:var(--ink-faint);margin-top:2px;}
+.fc-back,.fc-ctx{display:none;font-size:.81rem;margin-top:5px;}
+.fc-back{color:var(--accent);font-style:italic;}
+.fc-ctx{color:var(--ink-faint);font-size:.74rem;}
+.fc.flipped .fc-back,.fc.flipped .fc-ctx{display:block;}
+.fc-del{
+  position:absolute;top:8px;right:10px;background:none;border:none;
+  font-size:.73rem;color:var(--ink-faint);cursor:pointer;opacity:0;transition:opacity .15s;
+}
+.fc:hover .fc-del{opacity:1;}
+.fc-del:hover{color:var(--danger);}
+
+/* =====================================================
+   PROGRESS
+   ===================================================== */
+.prog-sec{margin-bottom:18px;}
+.prog-lbl{font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:5px;}
+.prog-bar-wrap{background:var(--bg);border-radius:20px;height:8px;overflow:hidden;margin-bottom:5px;}
+.prog-bar-fill{height:100%;background:var(--accent);border-radius:20px;transition:width .5s ease;}
+.prog-meta{font-size:.78rem;color:var(--ink-muted);}
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;}
+.prog-stat{background:var(--bg);border-radius:8px;padding:11px;text-align:center;}
+.prog-num{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--accent);display:block;}
+.prog-lbl2{font-size:.68rem;color:var(--ink-faint);}
+
+/* =====================================================
+   MISC
+   ===================================================== */
+.toast{
+  position:fixed;bottom:76px;left:50%;transform:translateX(-50%);
+  background:var(--ink);color:var(--bg);padding:9px 18px;
+  border-radius:6px;font-size:.83rem;z-index:300;
+  border-top:2px solid var(--gold);white-space:nowrap;
+  animation:fadeUp .2s ease;pointer-events:none;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.err-box{
+  background:#fdecea;border:1px solid #f5c6cb;border-radius:6px;
+  padding:10px 12px;color:var(--danger);font-size:.81rem;margin-top:8px;line-height:1.5;
+}
+.limit-box{background:var(--gold-light);border:1px solid var(--gold);border-radius:8px;padding:12px 14px;margin-bottom:11px;}
+.limit-box p{font-size:.83rem;color:var(--ink-muted);margin-bottom:8px;}
+.empty-st{text-align:center;padding:30px 10px;color:var(--ink-faint);font-style:italic;font-size:.86rem;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     PLAN MODAL
+     ═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="plan-modal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-hdr">
+      <button class="modal-x" onclick="closePlanModal()">×</button>
+      <h2>Lexis<span style="color:var(--gold)">.</span>Read</h2>
+      <p>Escolha seu plano</p>
+    </div>
+    <div class="modal-body">
+      <div class="plans-grid">
+        <div class="plan-card" id="pc-free" onclick="selectPlan('free')">
+          <div class="plan-name">Free</div>
+          <div class="plan-price">R$0<small>/mês</small></div>
+          <ul class="plan-feats">
+            <li>5 análises por dia</li>
+            <li>Flashcards ilimitados</li>
+            <li>Upload de PDF</li>
+            <li class="no">Análises ilimitadas</li>
+            <li class="no">Todos os temas</li>
+          </ul>
+        </div>
+        <div class="plan-card featured" id="pc-pro" onclick="selectPlan('pro')">
+          <div class="plan-name">Pro ⭐</div>
+          <div class="plan-price gp">R$19<small>/mês</small></div>
+          <ul class="plan-feats">
+            <li>Análises ilimitadas</li>
+            <li>Flashcards ilimitados</li>
+            <li>Upload PDF/EPUB</li>
+            <li>Todos os temas</li>
+            <li>Suporte prioritário</li>
+          </ul>
+        </div>
+      </div>
+      <button class="modal-btn dark" id="plan-confirm-btn" onclick="confirmPlan()">Continuar grátis</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SETTINGS MODAL
+     ═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="settings-modal">
+  <div class="modal settings-max">
+    <div class="modal-hdr">
+      <button class="modal-x" onclick="closeSettings()">×</button>
+      <h2>Configurações</h2>
+      <p>Conta, aparência e preferências</p>
+    </div>
+    <div class="modal-body">
+
+      <!-- PLANO -->
+      <div class="cfg-section">
+        <span class="cfg-label">Plano atual</span>
+        <div class="plan-info">
+          <span id="cfg-plan-name">Free — 5 análises/dia</span>
+          <button class="btn btn-gold" onclick="closeSettings();openPlanModal()">Alterar plano</button>
+        </div>
+        <div style="margin-top:8px;font-size:.75rem;color:var(--ink-faint)">
+          Análises hoje: <strong id="cfg-today">0</strong> / <span id="cfg-limit">5</span>
+        </div>
+      </div>
+
+      <!-- API KEY -->
+      <div class="cfg-section">
+        <span class="cfg-label">Chave de API — Gemini</span>
+        <input type="password" class="cfg-full" id="cfg-api-key" placeholder="AIza... (cole sua chave Gemini aqui)"/>
+        <div class="cfg-hint">
+          Obtenha grátis em <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>.
+          Sua chave é salva localmente no seu navegador — nunca enviada a terceiros.
+        </div>
+      </div>
+
+      <!-- APARÊNCIA — TEMAS -->
+      <div class="cfg-section">
+        <span class="cfg-label">Tema</span>
+        <div class="theme-grid" id="theme-grid">
+          <button class="theme-swatch active" data-theme="classic" onclick="applyTheme('classic',this)">
+            <div class="swatch-dot" style="background:linear-gradient(135deg,#f5f0e8 50%,#2c5f8a 50%)"></div>
+            <span class="swatch-name">Clássico</span>
+          </button>
+          <button class="theme-swatch" data-theme="night" onclick="applyTheme('night',this)">
+            <div class="swatch-dot" style="background:linear-gradient(135deg,#16161d 50%,#5b9bd5 50%)"></div>
+            <span class="swatch-name">Noite</span>
+          </button>
+          <button class="theme-swatch" data-theme="sepia" onclick="applyTheme('sepia',this)">
+            <div class="swatch-dot" style="background:linear-gradient(135deg,#f0e4c8 50%,#7a4820 50%)"></div>
+            <span class="swatch-name">Sépia</span>
+          </button>
+          <button class="theme-swatch" data-theme="forest" onclick="applyTheme('forest',this)">
+            <div class="swatch-dot" style="background:linear-gradient(135deg,#e8ede0 50%,#3a6b3a 50%)"></div>
+            <span class="swatch-name">Floresta</span>
+          </button>
+          <button class="theme-swatch" data-theme="midnight" onclick="applyTheme('midnight',this)">
+            <div class="swatch-dot" style="background:linear-gradient(135deg,#0e1420 50%,#4a8ac8 50%)"></div>
+            <span class="swatch-name">Meia-noite</span>
+          </button>
+          <button class="theme-swatch" data-theme="ocean" onclick="applyTheme('ocean',this)">
+            <div class="swatch-dot" style="background:linear-gradient(135deg,#eef6fc 50%,#0a5880 50%)"></div>
+            <span class="swatch-name">Oceano</span>
+          </button>
+          <button class="theme-swatch" data-theme="mono" onclick="applyTheme('mono',this)">
+            <div class="swatch-dot" style="background:linear-gradient(135deg,#f0f0f0 50%,#111 50%)"></div>
+            <span class="swatch-name">Mono</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- FONTE -->
+      <div class="cfg-section">
+        <span class="cfg-label">Tamanho do texto</span>
+        <div class="font-slider">
+          <span style="font-size:.8rem">A</span>
+          <input type="range" id="font-size-slider" min="14" max="22" value="16" step="1" oninput="applyFontSize(this.value)"/>
+          <span style="font-size:1.1rem">A</span>
+          <span id="font-size-val">16px</span>
+        </div>
+      </div>
+
+      <!-- IDIOMAS -->
+      <div class="cfg-section">
+        <span class="cfg-label">Idiomas padrão</span>
+        <div class="cfg-row">
+          <label>Texto original em:</label>
+          <select id="cfg-src-lang">
+            <option value="English">Inglês</option>
+            <option value="Spanish">Espanhol</option>
+            <option value="French">Francês</option>
+            <option value="German">Alemão</option>
+            <option value="Italian">Italiano</option>
+            <option value="Japanese">Japonês</option>
+            <option value="Portuguese">Português</option>
+            <option value="Mandarin">Mandarim</option>
+          </select>
+        </div>
+        <div class="cfg-row">
+          <label>Traduzir para:</label>
+          <select id="cfg-tgt-lang">
+            <option value="Portuguese">Português</option>
+            <option value="English">Inglês</option>
+            <option value="Spanish">Espanhol</option>
+            <option value="French">Francês</option>
+            <option value="German">Alemão</option>
+            <option value="Italian">Italiano</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- DADOS -->
+      <div class="cfg-section">
+        <span class="cfg-label">Dados da conta</span>
+        <div class="cfg-row">
+          <span>Flashcards salvos</span>
+          <strong id="cfg-fc-count">0</strong>
+        </div>
+        <div class="cfg-row" style="flex-direction:column;align-items:flex-start;gap:8px;">
+          <label>Limpar dados locais</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="danger-btn" onclick="clearFlashcardsOnly()">🗑 Apagar flashcards</button>
+            <button class="danger-btn" onclick="clearAllData()">⚠️ Resetar tudo</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOBRE -->
+      <div class="cfg-section">
+        <span class="cfg-label">Sobre</span>
+        <div class="cfg-row"><span>Versão</span><strong>1.0.0</strong></div>
+        <div class="cfg-row"><span>Desenvolvido por</span><strong>Você + Claude ✨</strong></div>
+      </div>
+
+      <button class="save-cfg-btn" onclick="saveSettings()">✓ Salvar configurações</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════ -->
+<header class="app-header">
+  <div class="app-logo">Lexis<span>.</span>Read</div>
+  <div class="header-right">
+    <div class="header-stats">
+      <span>Analisadas: <strong id="stat-analyzed">0</strong></span>
+      <span>Salvas: <strong id="stat-saved">0</strong></span>
+    </div>
+    <button class="icon-btn" onclick="openSettings()" title="Configurações">⚙️</button>
+    <button class="plan-badge free" id="plan-btn" onclick="openPlanModal()">FREE</button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     APP BODY
+     ═══════════════════════════════════════════ -->
+<div class="app-wrap">
+
+  <!-- READER -->
+  <div class="reader-panel">
+    <div class="reader-toolbar">
+      <label class="up-lbl" for="pdf-upload">📄 PDF</label>
+      <input type="file" id="pdf-upload" accept=".pdf,.txt"/>
+      <button class="btn" id="demo-btn">📖 Demo</button>
+      <div class="lang-row">
+        <span>De:</span>
+        <select id="src-lang">
+          <option value="English">Inglês</option>
+          <option value="Spanish">Espanhol</option>
+          <option value="French">Francês</option>
+          <option value="German">Alemão</option>
+          <option value="Italian">Italiano</option>
+          <option value="Japanese">Japonês</option>
+          <option value="Portuguese">Português</option>
+          <option value="Mandarin">Mandarim</option>
+        </select>
+      </div>
+      <div class="lang-row">
+        <span>Para:</span>
+        <select id="tgt-lang">
+          <option value="Portuguese">Português</option>
+          <option value="English">Inglês</option>
+          <option value="Spanish">Espanhol</option>
+          <option value="French">Francês</option>
+          <option value="German">Alemão</option>
+          <option value="Italian">Italiano</option>
+        </select>
+      </div>
+    </div>
+    <div class="reader-content" id="reader-content">
+      <div class="upload-zone">
+        <div class="upload-zone-ico">📚</div>
+        <h2>Carregue um PDF para começar</h2>
+        <p>Ou experimente o texto demo. Toque em qualquer palavra para análise contextual com IA.</p>
+        <label class="up-lbl" for="pdf-upload" style="margin-top:10px">📄 Selecionar PDF</label>
+        <button class="btn btn-acc" id="demo-btn2" style="margin-top:5px">📖 Texto Demo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-tabs">
+      <button class="tab active" data-tab="analysis">Análise</button>
+      <button class="tab" data-tab="flashcards">Flashcards</button>
+      <button class="tab" data-tab="progress">Progresso</button>
+    </div>
+    <div class="sidebar-content">
+      <div id="tab-analysis">
+        <div class="analysis-ph" id="analysis-ph">
+          <div style="font-size:1.8rem">🔍</div>
+          <p>Toque em qualquer palavra do texto para ver a análise contextual</p>
+        </div>
+        <div id="analysis-result" style="display:none"></div>
+      </div>
+      <div id="tab-flashcards" style="display:none">
+        <div class="fc-controls">
+          <button class="btn" onclick="exportCSV()">⬇ CSV</button>
+          <button class="btn" onclick="clearFlashcardsOnly()">🗑 Limpar</button>
+        </div>
+        <div class="fc-list" id="fc-list">
+          <div class="empty-st">Salve palavras durante a leitura para criar flashcards.</div>
+        </div>
+      </div>
+      <div id="tab-progress" style="display:none">
+        <div class="prog-sec">
+          <div class="prog-lbl">Cobertura do texto</div>
+          <div class="prog-bar-wrap"><div class="prog-bar-fill" id="prog-bar" style="width:0%"></div></div>
+          <div class="prog-meta" id="prog-text">0 de 0 palavras únicas vistas</div>
+        </div>
+        <div class="prog-grid">
+          <div class="prog-stat"><span class="prog-num" id="pg-analyzed">0</span><span class="prog-lbl2">Analisadas</span></div>
+          <div class="prog-stat"><span class="prog-num" id="pg-saved">0</span><span class="prog-lbl2">Salvas</span></div>
+          <div class="prog-stat"><span class="prog-num" id="pg-unique">0</span><span class="prog-lbl2">Únicas no texto</span></div>
+          <div class="prog-stat"><span class="prog-num" id="pg-min">0</span><span class="prog-lbl2">Minutos</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="btm-nav">
+    <button class="btm-btn active" onclick="mobileNav(this,'reader')"><span class="ico">📖</span><span>Ler</span></button>
+    <button class="btm-btn" onclick="mobileNav(this,'analysis')"><span class="ico">🔍</span><span>Análise</span></button>
+    <button class="btm-btn" onclick="mobileNav(this,'flashcards')"><span class="ico">⭐</span><span>Cards</span></button>
+    <button class="btm-btn" onclick="mobileNav(this,'progress')"><span class="ico">📊</span><span>Progresso</span></button>
+  </nav>
+</div>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+// ── STATE ───────────────────────────────────────────────
+const S={
+  plan:'free',apiKey:'',dailyCount:0,dailyLimit:5,
+  theme:'classic',fontSize:16,
+  saved:[],seenWords:new Set(),uniqueWords:new Set(),
+  analyzedCount:0,startTime:Date.now(),selectedPlan:'free',
+};
+
+// Restore from localStorage
+try{
+  const st=JSON.parse(localStorage.getItem('lr2_state')||'{}');
+  S.plan=st.plan||'free';
+  S.apiKey=st.apiKey||'';
+  S.saved=st.saved||[];
+  S.theme=st.theme||'classic';
+  S.fontSize=st.fontSize||16;
+  const today=new Date().toDateString();
+  S.dailyCount=(st.lastDay===today)?(st.dailyCount||0):0;
+}catch(e){}
+
+function persist(){
+  try{
+    localStorage.setItem('lr2_state',JSON.stringify({
+      plan:S.plan,apiKey:S.apiKey,saved:S.saved,
+      theme:S.theme,fontSize:S.fontSize,
+      dailyCount:S.dailyCount,lastDay:new Date().toDateString()
+    }));
+  }catch(e){}
+}
+
+// ── THEME ───────────────────────────────────────────────
+function applyTheme(theme, btn){
+  S.theme=theme;
+  document.documentElement.setAttribute('data-theme',theme);
+  document.querySelectorAll('.theme-swatch').forEach(s=>s.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  else{
+    const s=document.querySelector(`.theme-swatch[data-theme="${theme}"]`);
+    if(s)s.classList.add('active');
+  }
+}
+function applyFontSize(val){
+  S.fontSize=parseInt(val);
+  document.querySelector('.reader-text')?.style.setProperty('font-size',val+'px');
+  document.getElementById('font-size-val').textContent=val+'px';
+  document.getElementById('font-size-slider').value=val;
+}
+// Apply saved theme & font
+applyTheme(S.theme, null);
+document.addEventListener('DOMContentLoaded',()=>{
+  applyFontSize(S.fontSize);
+  document.getElementById('font-size-slider').value=S.fontSize;
+});
+
+// ── PLAN MODAL ──────────────────────────────────────────
+function openPlanModal(){selectPlan(S.plan);document.getElementById('plan-modal').classList.add('open');}
+function closePlanModal(){document.getElementById('plan-modal').classList.remove('open');}
+document.getElementById('plan-modal').addEventListener('click',e=>{if(e.target===document.getElementById('plan-modal'))closePlanModal();});
+function selectPlan(p){
+  S.selectedPlan=p;
+  document.getElementById('pc-free').classList.toggle('sel',p==='free');
+  document.getElementById('pc-pro').classList.toggle('sel',p==='pro');
+  const btn=document.getElementById('plan-confirm-btn');
+  btn.textContent=p==='pro'?'Ativar Pro — R$19/mês':'Continuar grátis';
+  btn.className=p==='pro'?'modal-btn amber':'modal-btn dark';
+}
+function confirmPlan(){
+  S.plan=S.selectedPlan;persist();
+  updatePlanBadge();closePlanModal();
+  showToast(S.plan==='pro'?'Plano Pro ativado! ⭐':'Plano Free ativo.');
+}
+function updatePlanBadge(){
+  const b=document.getElementById('plan-btn');
+  b.textContent=S.plan==='pro'?'PRO ⭐':'FREE';
+  b.className=S.plan==='pro'?'plan-badge':'plan-badge free';
+}
+updatePlanBadge();
+
+// ── SETTINGS MODAL ──────────────────────────────────────
+function openSettings(){
+  document.getElementById('cfg-plan-name').textContent=
+    S.plan==='pro'?'Pro ⭐ — Análises ilimitadas':'Free — 5 análises/dia';
+  document.getElementById('cfg-today').textContent=S.dailyCount;
+  document.getElementById('cfg-limit').textContent=S.dailyLimit;
+  document.getElementById('cfg-fc-count').textContent=S.saved.length;
+  document.getElementById('cfg-api-key').value=S.apiKey||'';
+  document.getElementById('cfg-src-lang').value=document.getElementById('src-lang').value;
+  document.getElementById('cfg-tgt-lang').value=document.getElementById('tgt-lang').value;
+  document.getElementById('font-size-slider').value=S.fontSize;
+  document.getElementById('font-size-val').textContent=S.fontSize+'px';
+  document.querySelectorAll('.theme-swatch').forEach(s=>s.classList.toggle('active',s.dataset.theme===S.theme));
+  document.getElementById('settings-modal').classList.add('open');
+}
+function closeSettings(){document.getElementById('settings-modal').classList.remove('open');}
+document.getElementById('settings-modal').addEventListener('click',e=>{if(e.target===document.getElementById('settings-modal'))closeSettings();});
+
+function saveSettings(){
+  const key=document.getElementById('cfg-api-key').value.trim();
+  if(key)S.apiKey=key;
+  document.getElementById('src-lang').value=document.getElementById('cfg-src-lang').value;
+  document.getElementById('tgt-lang').value=document.getElementById('cfg-tgt-lang').value;
+  persist();closeSettings();showToast('Configurações salvas!');
+}
+
+function clearFlashcardsOnly(){
+  if(!S.saved.length){showToast('Nenhum flashcard para apagar.');return;}
+  if(!confirm('Apagar todos os flashcards?'))return;
+  S.saved=[];persist();renderFC();
+  document.getElementById('stat-saved').textContent=0;
+  document.getElementById('pg-saved').textContent=0;
+  showToast('Flashcards apagados.');
+}
+function clearAllData(){
+  if(!confirm('Isso vai resetar TODO o app — flashcards, configurações e chave de API. Continuar?'))return;
+  localStorage.removeItem('lr2_state');
+  showToast('Dados resetados. Recarregando...');
+  setTimeout(()=>location.reload(),1200);
+}
+
+// ── TABS ────────────────────────────────────────────────
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.querySelectorAll('[id^="tab-"]').forEach(p=>p.style.display='none');
+    document.getElementById('tab-'+t.dataset.tab).style.display='block';
+  });
+});
+
+// ── MOBILE NAV ──────────────────────────────────────────
+function mobileNav(btn,panel){
+  document.querySelectorAll('.btm-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const sb=document.getElementById('sidebar');
+  if(panel==='reader'){sb.classList.remove('open');}
+  else{
+    sb.classList.add('open');
+    const t=document.querySelector(`.tab[data-tab="${panel}"]`);
+    if(t)t.click();
+  }
+}
+
+// ── DEMO TEXT ───────────────────────────────────────────
+const DEMO={
+  title:'Pride and Prejudice — Jane Austen (Cap. I)',
+  text:`It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered as the rightful property of some one or other of their daughters.
+
+"My dear Mr. Bennet," said his lady to him one day, "have you heard that Netherfield Park is let at last?" Mr. Bennet replied that he had not. "But it is," returned she; "for Mrs. Long has just been here, and she told me all about it." Mr. Bennet made no answer. "Do not you want to know who has taken it?" cried his wife impatiently. "You want to tell me, and I have no objection to hearing it." This was invitation enough.
+
+"Why, my dear, you must know, Mrs. Long says that Netherfield is taken by a young man of large fortune from the north of England; that he came down on Monday in a chaise and four to see the place, and was so much delighted with it that he agreed with Mr. Morris immediately; that he is to take possession before Michaelmas, and some of his servants are to be in the house by the end of next week."`
+};
+function loadDemo(){renderText(DEMO.text,DEMO.title);showToast('Texto demo carregado!');}
+document.getElementById('demo-btn').onclick=loadDemo;
+document.getElementById('demo-btn2').onclick=loadDemo;
+
+// ── PDF ─────────────────────────────────────────────────
+document.getElementById('pdf-upload').addEventListener('change',async e=>{
+  const file=e.target.files[0];if(!file)return;
+  showToast('Carregando...');
+  const fr=new FileReader();
+  fr.onload=async ev=>{
+    if(file.name.endsWith('.txt')){
+      renderText(new TextDecoder().decode(ev.target.result),file.name.replace('.txt',''));
+      showToast('Arquivo carregado!');return;
+    }
+    try{
+      const pdf=await pdfjsLib.getDocument(new Uint8Array(ev.target.result)).promise;
+      let full='';
+      for(let i=1;i<=Math.min(pdf.numPages,20);i++){
+        const pg=await pdf.getPage(i);
+        const ct=await pg.getTextContent();
+        full+=ct.items.map(s=>s.str).join(' ')+'\n\n';
+      }
+      renderText(full,file.name.replace('.pdf',''));
+      showToast(`PDF carregado!`);
+    }catch{showToast('Erro ao ler PDF.');}
+  };
+  fr.readAsArrayBuffer(file);
+  e.target.value='';
+});
+
+// ── RENDER TEXT ─────────────────────────────────────────
+function renderText(text,title){
+  S.uniqueWords=new Set();S.seenWords=new Set();S.analyzedCount=0;
+  const rc=document.getElementById('reader-content');
+  let html=`<div class="book-title">${esc(title)}</div><div class="reader-text" style="font-size:${S.fontSize}px">`;
+  text.split(/(\s+)/).forEach(tok=>{
+    if(/^\s+$/.test(tok)){html+=tok.replace(/\n/g,'<br>');return;}
+    const clean=tok.replace(/[^a-zA-ZÀ-ÿ\u3040-\u9fff'-]/g,'').toLowerCase();
+    if(clean.length>1){S.uniqueWords.add(clean);html+=`<span class="word" data-word="${clean}">${esc(tok)}</span>`;}
+    else html+=esc(tok);
+  });
+  html+='</div>';
+  rc.innerHTML=html;
+  updateProgress();
+  rc.querySelectorAll('.word').forEach(el=>el.addEventListener('click',()=>handleWord(el)));
+}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ── WORD CLICK ──────────────────────────────────────────
+function handleWord(el){
+  const word=el.dataset.word;if(!word)return;
+  if(!S.apiKey){showToast('Configure sua chave de API em ⚙️ Configurações.');openSettings();return;}
+  if(S.plan==='free'&&S.dailyCount>=S.dailyLimit){showLimitWarning();openMobile('analysis');return;}
+  const txt=document.querySelector('.reader-text')?.innerText||'';
+  const idx=txt.toLowerCase().indexOf(word);
+  const ctx=idx>=0?txt.slice(Math.max(0,idx-160),Math.min(txt.length,idx+word.length+160)).replace(/\s+/g,' ').trim():word;
+  document.querySelectorAll('.word.active').forEach(w=>w.classList.remove('active'));
+  el.classList.add('active','seen');
+  S.seenWords.add(word);S.analyzedCount++;
+  if(S.plan==='free')S.dailyCount++;
+  persist();
+  document.getElementById('stat-analyzed').textContent=S.analyzedCount;
+  document.getElementById('pg-analyzed').textContent=S.analyzedCount;
+  updateProgress();
+  openMobile('analysis');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('[data-tab="analysis"]').classList.add('active');
+  document.querySelectorAll('[id^="tab-"]').forEach(p=>p.style.display='none');
+  document.getElementById('tab-analysis').style.display='block';
+  analyzeWord(word,ctx);
+}
+function openMobile(tab){
+  if(window.innerWidth<768){
+    document.getElementById('sidebar').classList.add('open');
+    document.querySelectorAll('.btm-btn').forEach(b=>b.classList.remove('active'));
+    const m={analysis:1,flashcards:2,progress:3};
+    const btns=document.querySelectorAll('.btm-btn');
+    if(m[tab]!==undefined)btns[m[tab]].classList.add('active');
+  }
+}
+function showLimitWarning(){
+  document.getElementById('analysis-ph').style.display='none';
+  const r=document.getElementById('analysis-result');r.style.display='block';
+  r.innerHTML=`<div class="limit-box"><p>⚠️ Limite de <strong>${S.dailyLimit} análises</strong> atingido hoje.</p><button class="btn btn-gold" onclick="openPlanModal()">Fazer upgrade para Pro</button></div>`;
+}
+
+// ── AI ANALYSIS ─────────────────────────────────────────
+async function analyzeWord(word,context){
+  const srcLang=document.getElementById('src-lang').value;
+  const tgtLang=document.getElementById('tgt-lang').value;
+  document.getElementById('analysis-ph').style.display='none';
+  const res=document.getElementById('analysis-result');
+  res.style.display='block';
+  res.innerHTML=`<div class="loading-ind"><div class="spinner"></div>Analisando "<strong>${word}</strong>"...</div>`;
+  try{
+    const r=await fetch('/api/analyze',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-gemini-key':S.apiKey},
+      body:JSON.stringify({word,context,srcLang,tgtLang})
+    });
+    const data=await r.json();
+    if(!r.ok)throw new Error(data.error||'Erro do servidor');
+    renderAnalysis(data);
+    if(S.plan==='free'){
+      const rem=S.dailyLimit-S.dailyCount;
+      if(rem<=2&&rem>0)showToast(`${rem} análise(s) restante(s) hoje.`);
+    }
+  }catch(err){
+    res.innerHTML=`<div class="err-box">❌ ${err.message}<br><small>Verifique sua chave em ⚙️ Configurações.</small></div>`;
+  }
+}
+
+// ── RENDER ANALYSIS ─────────────────────────────────────
+function renderAnalysis(data){
+  const saved=S.saved.some(w=>w.word===data.word);
+  document.getElementById('analysis-result').innerHTML=`
+    <div class="aw">${data.word}</div>
+    <div class="apos">${data.part_of_speech}</div>
+    <div class="asec"><div class="albl">✦ Neste contexto</div><div class="abody">${data.contextual_meaning}</div></div>
+    <div class="asec"><div class="albl">Significado geral</div><div class="abody" style="color:var(--ink-muted)">${data.general_meaning}</div></div>
+    <div class="asec"><div class="albl">Exemplos</div>
+      ${data.examples_source.map(ex=>`<div class="ex-item">${ex.sentence}<div class="ex-tr">↳ ${ex.translation}</div></div>`).join('')}
+    </div>
+    <div class="asec"><div class="albl">Contexto traduzido</div><div class="abody" style="color:var(--accent);font-style:italic">${data.context_translation}</div></div>
+    <div class="save-row">
+      ${saved
+        ?`<button class="btn" disabled style="opacity:.5;cursor:default">✓ Já salvo</button>`
+        :`<button class="btn btn-gold" onclick='saveWord(${JSON.stringify(data).replace(/'/g,"&#39;")})'>⭐ Salvar flashcard</button>`}
+    </div>`;
+}
+
+// ── SAVE WORD ───────────────────────────────────────────
+function saveWord(data){
+  if(S.saved.some(w=>w.word===data.word))return;
+  S.saved.push(data);persist();
+  const c=S.saved.length;
+  document.getElementById('stat-saved').textContent=c;
+  document.getElementById('pg-saved').textContent=c;
+  renderFC();renderAnalysis(data);
+  showToast(`"${data.word}" salvo!`);
+}
+
+// ── FLASHCARDS ──────────────────────────────────────────
+function renderFC(){
+  const list=document.getElementById('fc-list');
+  if(!S.saved.length){list.innerHTML='<div class="empty-st">Salve palavras durante a leitura para criar flashcards.</div>';return;}
+  list.innerHTML=S.saved.map((w,i)=>`
+    <div class="fc" onclick="this.classList.toggle('flipped')">
+      <button class="fc-del" onclick="event.stopPropagation();delFC(${i})" title="Remover">✕</button>
+      <div class="fc-front">${w.word}</div>
+      <div class="fc-hint">Toque para revelar</div>
+      <div class="fc-back">${w.contextual_meaning}</div>
+      <div class="fc-ctx">${w.general_meaning}</div>
+    </div>`).join('');
+}
+function delFC(i){
+  S.saved.splice(i,1);persist();renderFC();
+  document.getElementById('stat-saved').textContent=S.saved.length;
+  document.getElementById('pg-saved').textContent=S.saved.length;
+}
+function exportCSV(){
+  if(!S.saved.length){showToast('Nenhum flashcard para exportar.');return;}
+  const rows=[['Palavra','Significado no contexto','Significado geral','Exemplo'],...S.saved.map(w=>[w.word,w.contextual_meaning,w.general_meaning,w.examples_source?.[0]?.sentence||''])];
+  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'})),download:'lexisread_flashcards.csv'});
+  a.click();showToast('CSV exportado!');
+}
+
+// ── PROGRESS ────────────────────────────────────────────
+function updateProgress(){
+  const total=S.uniqueWords.size,seen=S.seenWords.size;
+  const pct=total>0?Math.round((seen/total)*100):0;
+  document.getElementById('prog-bar').style.width=pct+'%';
+  document.getElementById('prog-text').textContent=`${seen} de ${total} palavras únicas vistas (${pct}%)`;
+  document.getElementById('pg-unique').textContent=total;
+}
+setInterval(()=>{document.getElementById('pg-min').textContent=Math.floor((Date.now()-S.startTime)/60000);},15000);
+
+// ── TOAST ────────────────────────────────────────────────
+function showToast(msg){
+  const t=Object.assign(document.createElement('div'),{className:'toast',textContent:msg});
+  document.body.appendChild(t);setTimeout(()=>t.remove(),2600);
+}
+
+// ── INIT ─────────────────────────────────────────────────
+renderFC();
+</script>
+</body>
+</html>
